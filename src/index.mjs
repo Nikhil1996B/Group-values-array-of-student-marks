@@ -1,5 +1,69 @@
-import "./styles.css";
+const studentObj = [
+  {
+    name: "Student abc",
+    id: "123",
+    subject: "English",
+    score: 85,
+  },
 
-document.getElementById("app").innerHTML = `
-<h1>Hello JavaScript!</h1>
-`;
+  {
+    name: "Student abc",
+    id: "123",
+    subject: "Maths",
+    score: 98,
+  },
+  {
+    name: "Student Def",
+    id: "456",
+    subject: "Science",
+    score: 92,
+  },
+  {
+    name: "Student Def",
+    id: "456",
+    subject: "Maths",
+    score: 98,
+  },
+];
+
+const ifValuePresent = (arr, key, value) => arr?.find((a) => a[key] === value);
+
+console.log(
+  studentObj.reduce((accumalator, curr) => {
+    const { name, id, subject, score } = curr;
+    const fallBackSubjectScore = { subject, score };
+    if (ifValuePresent(accumalator || [], "id", curr?.id)) {
+      accumalator = (accumalator || [])?.map((acc) => {
+        const subjectScore = [...(acc?.subjectScore || [])];
+        return acc?.id === curr?.id
+          ? {
+              name: name,
+              id: id,
+              subjectScore: ifValuePresent(
+                acc?.subjectScore || [],
+                "subject",
+                subject,
+              )
+                ? subjectScore.map((subjectEntity) =>
+                    subjectEntity?.subject === subject
+                      ? {
+                          ...(subjectEntity || {}),
+                          score: (subjectEntity?.score || 0) + score,
+                        }
+                      : fallBackSubjectScore,
+                  )
+                : [...subjectScore, fallBackSubjectScore],
+            }
+          : acc;
+      });
+      return accumalator;
+    } else {
+      accumalator.push({
+        name,
+        id,
+        subjectScore: [fallBackSubjectScore],
+      });
+    }
+    return accumalator;
+  }, []),
+);
