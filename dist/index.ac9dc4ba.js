@@ -613,9 +613,9 @@ const filteredAndGroupedResult = studentObj.reduce((accumalator, curr)=>{
             const subjectScore = [
                 ...acc?.subjectScore || []
             ];
-            return acc?.id === curr?.id ? {
-                name: name,
-                id: id,
+            return acc?.id === id ? {
+                name,
+                id,
                 subjectScore: ifValuePresent(acc?.subjectScore || [], "subject", subject) ? subjectScore.map((subjectEntity)=>subjectEntity?.subject === subject ? {
                         ...subjectEntity || {},
                         score: (subjectEntity?.score || 0) + score
