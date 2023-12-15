@@ -28,7 +28,7 @@ const studentObj = [
 
 const ifValuePresent = (arr, key, value) => arr?.find((a) => a[key] === value);
 
-console.log(
+const filteredAndGroupedResult  =
   studentObj.reduce((accumalator, curr) => {
     const { name, id, subject, score } = curr;
     const fallBackSubjectScore = { subject, score };
@@ -66,4 +66,7 @@ console.log(
     }
     return accumalator;
   }, []),
-);
+
+const output = document.getElementById("output");
+const container = document.getElementById("app");
+container.innerHTML = JSON.stringify(filteredAndGroupedResult, null ,4);
