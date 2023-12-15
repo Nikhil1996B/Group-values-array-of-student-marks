@@ -602,7 +602,7 @@ const studentObj = [
     }
 ];
 const ifValuePresent = (arr, key, value)=>arr?.find((a)=>a[key] === value);
-console.log(studentObj.reduce((accumalator, curr)=>{
+const filteredAndGroupedResult = studentObj.reduce((accumalator, curr)=>{
     const { name, id, subject, score } = curr;
     const fallBackSubjectScore = {
         subject,
@@ -634,7 +634,9 @@ console.log(studentObj.reduce((accumalator, curr)=>{
         ]
     });
     return accumalator;
-}, []));
+}, []);
+const output = document.getElementById("output");
+output.innerHTML = JSON.stringify(filteredAndGroupedResult, null, 4);
 
 },{}]},["iZQ9B","aR1JP"], "aR1JP", "parcelRequirebaba")
 
